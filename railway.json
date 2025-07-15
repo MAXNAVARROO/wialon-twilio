@@ -1,0 +1,12 @@
+
+{
+  "build": {
+    "env": {
+      "ACCOUNT_SID": "TU_ACCOUNT_SID",
+      "AUTH_TOKEN": "TU_AUTH_TOKEN"
+    }
+  },
+  "deploy": {
+    "startCommand": "npm install && npm start"
+  }
+}
