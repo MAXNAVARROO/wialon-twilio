@@ -1,14 +1,15 @@
-
 const express = require('express');
 const twilio = require('twilio');
 const app = express();
 app.use(express.json());
 
-const accountSid = process.env.ACCOUNT_SID || 'TU_ACCOUNT_SID';
+// Cargar credenciales desde variables de entorno o usar por defecto (solo para pruebas)
+const accountSid = process.env.TWILIO_ACCOUNT_SID || 'TU_ACCOUNT_SID';
 const authToken = process.env.AUTH_TOKEN || 'TU_AUTH_TOKEN';
 const client = twilio(accountSid, authToken);
 
-app.post('/wialon-event', async (req, res) => {
+// Ruta que Wialon llamará
+app.post('/webhook', async (req, res) => {
   const unidad = req.body.unit || 'Vehículo desconocido';
   const velocidad = req.body.speed || 'sin datos';
 
@@ -16,8 +17,8 @@ app.post('/wialon-event', async (req, res) => {
 
   try {
     await client.messages.create({
-      from: 'whatsapp:+14155238886',
-      to: 'whatsapp:+54911XXXXXXXX',
+      from: 'whatsapp:+14155238886', // número sandbox Twilio
+      to: 'whatsapp:+54911XXXXXXXX',  // tu número verificado en Twilio
       body: mensaje
     });
 
@@ -28,6 +29,7 @@ app.post('/wialon-event', async (req, res) => {
   }
 });
 
-app.listen(3000, () => {
-  console.log('🟢 Servidor escuchando en http://localhost:3000');
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`🟢 Servidor escuchando en http://localhost:${PORT}`);
 });
