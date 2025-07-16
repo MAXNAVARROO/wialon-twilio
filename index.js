@@ -17,8 +17,8 @@ app.post('/webhook', async (req, res) => {
 
   try {
     await client.messages.create({
-      from: 'whatsapp:+14155238886', // número sandbox Twilio
-      to: 'whatsapp:+54911XXXXXXXX',  // tu número verificado en Twilio
+      from: 'whatsapp:+543755438595', // número sandbox Twilio
+      to: 'whatsapp:+543755438595',  // tu número verificado en Twilio
       body: mensaje
     });
 
